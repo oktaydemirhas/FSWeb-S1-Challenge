@@ -156,7 +156,8 @@ Aşağıdakileri konsolda gösterim (console.log) işlemi gerçekleştirerek, yu
 
 /* Görev 2 (otomatik kontrol testi yapılmayacak):
 (işlev yazmanıza gerek yok)
-Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış. Bu sorunu düzeltin ve çalışmanızı kontrol etmek için console.log() yapın.
+Fenomenler dizisinde bir yazım hatası var 😱 7. sıradaki fenomen 'Justin Bieber' ın soyismi 'Biber' olarak yanlış yazılmış. Bu sorunu düzeltin ve çalışmanızı kontrol etmek 
+için console.log() yapın.
 
 
 /*  Görev 3:
@@ -168,9 +169,10 @@ Aşağıdaki işlemleri yapmak için indekseGoreFenomen işlevini kullanın:
 NOT: DÖNDÜĞÜNÜZ DİZİN YUKARIDAKİ BİÇİMLE EŞLEŞMESİ GEREKİR, YA DA TESTİ GEÇMEYECEKTİR!
 ÖRNEK: fenomenler dizisi ve 3 sayısı ile indekseGoreFenomen çağrılırsa, `3. indekste bulunan fenomen: Leo Messi' */
 
-function indekseGoreFenomen(/*kod*/) {
-  /*kod*/
+function indekseGoreFenomen(fenomens, indexNo) {
+  return `${indexNo}. indekste bulunan fenomen: ${fenomens[indexNo].profile}`;
 }
+
 
 
 
@@ -182,9 +184,12 @@ Aşağıdakileri yapmak için profilListesi'ni kullanın:
 🌟 Dönüş ÖRNEĞİ: ["Instagram", "Cristiano Ronaldo", "Kylie"....]
 */
 
-function profilListesi(/*kod*/) {
-  /*kod*/
+function profilListesi(fenomens) {
+  const fenolar = fenomens.map(fenomen => fenomen.profile);
+  return fenolar;
 }
+
+console.log(profilListesi(fenomenler));
 
 
 
@@ -197,10 +202,14 @@ Aşağıdakileri yapmak için fenomenSil'i kullanın:
 5. Ortaya çıkan diziyi döndürün
 
 ÖRNEK: fenomenSil işlevi fenomenler dizisi ve 0 indeks sayısı ile çağrılırsa, veri kümemizden 'Instagram' kaldırılmış olarak döndürür. */
-function fenomenSil(/*kod*/) {
-  /*kod*/
+const fenomens = [...fenomenler];
+function fenomenSil(fenomens, i) {
+  const newFenomens = [...fenomens];
+  newFenomens.splice(i, 1);
+  return newFenomens;
 }
 
+console.log(fenomenSil(fenomens, 0));
 
 
 /* Görev 6:
@@ -220,8 +229,16 @@ Aşağıdakileri yapmak için fenomenEkle'i kullanın:
 
 ÖRNEK: fenomenEkle(fenomenler, 6, "Workintech", 10000000, 2022, "Instagram") çağrıldığında dizinin sonuna yukarıdaki nesne en sona eklenerek yeni fenomenler dizisini döndürmelidir. */
 
-function fenomenEkle(/*kod*/) {
-  /*kod*/
+function fenomenEkle(fenomens, number, profile, followers, posts, platform) {
+  const newFenomen = {
+    number: number,
+    profile: profile,
+    followers: followers,
+    posts: posts,
+    platform: platform,
+  };
+  //...fenomens arrayin tüm nesnelerini virgül ile yan yana koyduğu için en sona virgül ile ekleyeceğimiz nesneyi ekleyebiliriz
+  return [...fenomens, newFenomen];
 }
 
 
@@ -233,10 +250,12 @@ Aşağıdakileri yapmak için enFenomenler'yi kullanın:
 ÖRNEK: enFenomenler(fenomenler) çağrıldığında sonuç olarak ["Instagram", "Cristiano Ronaldo", ... "Khabane lame"] dönemelidir
 */
 
-function enFenomenler(/*kod*/) {
-  /*kod*/
+function enFenomenler(fenomens) {
+  return fenomens
+    .filter(fenomen => fenomen.followers > 100000000)
+    .map(fenomen => fenomen.profile);
 }
-
+console.log(enFenomenler(fenomens));
 
 /* Görev 8:
 Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
@@ -247,10 +266,14 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 ÖRNEK: fenomenGonderimSayisi(fenomenler, 'Will Smith') çağrıldığında "136" dönmelidir
 */
 
-function fenomenGonderimSayisi(/*kod*/){
-  /*kod*/
+function fenomenGonderimSayisi(fenomens, profileName) {
+  for (let i = 0; i < fenomens.lenght; i++) {
+    if (fenomens[i].profile === profileName) {
+      return fenomens[i].posts;
+    }
+  }
 }
-
+console.log(fenomenGonderimSayisi(fenomens, "Will Smith"));
 
 
 /* Görev 9:
@@ -264,8 +287,8 @@ Not: Gönderi sayısı belli olmayan (NA) hesaba katmayın.
 Örnek: platformaGoreCokGonderiYapanFenomen(fenomenler, 'TikTok') çağrıldığında "charli damelio" dönmelidir
 */
 
-function platformaGoreCokGonderiYapanFenomen(/*kod*/){
-  /*kod*/
+function platformaGoreCokGonderiYapanFenomen(fenomens, platformName) {
+  const platformFiltered = fenomens.filter(fenomen => fenomen.platform === platformName);
 }
 
 
